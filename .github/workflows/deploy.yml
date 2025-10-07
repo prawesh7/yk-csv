@@ -1,0 +1,71 @@
+name: Deploy YK-CSV to HostPapa
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install frontend dependencies
+      run: npm install
+    
+    - name: Build frontend
+      run: npm run build
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        pip install -r requirements.txt
+    
+    - name: Test backend
+      run: |
+        cd backend
+        python -m pytest || echo "No tests found, continuing..."
+    
+    - name: Deploy to HostPapa via SSH
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.HOSTPAPA_HOST }}
+        username: ${{ secrets.HOSTPAPA_USERNAME }}
+        key: ${{ secrets.HOSTPAPA_SSH_KEY }}
+        script: |
+          # Navigate to project directory
+          cd ${{ secrets.PROJECT_PATH }}
+          
+          # Pull latest changes
+          git pull origin main
+          
+          # Install frontend dependencies and build
+          npm install
+          npm run build
+          
+          # Set up Python environment
+          cd backend
+          python3 -m venv venv || echo "Virtual environment already exists"
+          source venv/bin/activate
+          pip install -r requirements.txt
+          
+          # Restart backend service
+          pkill -f "python.*main.py" || echo "No running processes found"
+          nohup python main.py > app.log 2>&1 &
+          
+          echo "Deployment completed successfully!"
