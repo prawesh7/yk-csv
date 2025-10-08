@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import './index.css';
 
-// Configuration - Modify this for deployment
-const BACKEND_URL = 'https://csv.harmonycommunityhub.org';  // Your actual domain
+// Configuration - Frontend-only mode (no backend needed)
+const BACKEND_URL = '';  // No backend - pure frontend application
 
 // Declare Google Input Tools API
 declare global {
