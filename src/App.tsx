@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import './index.css';
 
-// Configuration - Modify this for deployment
-const BACKEND_URL = 'https://csv.harmonycommunityhub.org';
+// Configuration - Netlify Functions
+const BACKEND_URL = '';
 
 // Declare Google Input Tools API
 declare global {
@@ -771,7 +771,7 @@ const App: React.FC = () => {
     
     try {
       // Get backend suggestion
-      const response = await fetch(`${BACKEND_URL}/transliterate`, {
+      const response = await fetch('/api/transliterate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: word })
@@ -1092,9 +1092,10 @@ const App: React.FC = () => {
       const formData = new FormData();
       formData.append('file', file);
       
-      const response = await fetch(`${BACKEND_URL}/extract-text`, {
+      const response = await fetch('/api/extract-text', {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ file: { name: file.name, size: file.size } }),
       });
       
       if (!response.ok) {
