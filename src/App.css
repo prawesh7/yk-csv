@@ -1,0 +1,93 @@
+/* Additional component-specific styles */
+.lyric-item {
+  position: relative;
+}
+
+.lyric-item h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lyric-item h4::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+.lyric-input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.hindi-input::placeholder {
+  text-align: right;
+}
+
+/* CSV format info */
+.csv-info {
+  background-color: #e3f2fd;
+  border: 1px solid #bbdefb;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #1565c0;
+}
+
+.csv-info h4 {
+  margin-bottom: 8px;
+  color: #0d47a1;
+}
+
+.csv-info ul {
+  margin-left: 20px;
+}
+
+.csv-info li {
+  margin-bottom: 4px;
+}
+
+/* File upload status */
+.upload-status {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.upload-status.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.upload-status.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .upload-section,
+  .editor-section {
+    padding: 20px;
+  }
+  
+  .lyric-input {
+    min-height: 60px;
+    font-size: 0.9rem;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
