@@ -6,7 +6,6 @@ backend/*.pyc
 
 # Build outputs
 build/
-dist/
 
 # Environment variables
 .env
@@ -57,3 +56,7 @@ yarn-error.log*
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Upload packages (keep these out of git)
+upload-package/
+yk-csv-upload.zip

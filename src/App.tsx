@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import './index.css';
 
-// Configuration - Netlify Functions
-const BACKEND_URL = '';
+// Configuration - Frontend-only mode (no backend needed)
+const BACKEND_URL = '';  // No backend - pure frontend application
 
 // Declare Google Input Tools API
 declare global {

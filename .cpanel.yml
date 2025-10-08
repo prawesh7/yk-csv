@@ -1,7 +1,0 @@
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/yourusername/public_html
-    - /bin/bash -lc 'npm install'
-    - /bin/bash -lc 'npm run build'
-    - /bin/cp -R build/* $DEPLOYPATH/
