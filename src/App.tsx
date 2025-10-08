@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import './index.css';
 
 // Configuration - Modify this for deployment
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://csv.harmonycommunityhub.org';
 
 // Declare Google Input Tools API
 declare global {
