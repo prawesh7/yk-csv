@@ -1089,13 +1089,22 @@ const App: React.FC = () => {
     setIsProcessing(true);
     
     try {
-      const formData = new FormData();
-      formData.append('file', file);
+      // Convert file to base64 for OCR processing
+      const reader = new FileReader();
+      const imageData = await new Promise<string>((resolve, reject) => {
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
       
       const response = await fetch('/api/extract-text', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ file: { name: file.name, size: file.size } }),
+        body: JSON.stringify({ 
+          imageData: imageData,
+          fileName: file.name,
+          fileType: file.type
+        }),
       });
       
       if (!response.ok) {
